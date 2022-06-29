@@ -15,3 +15,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+
+  twilio:
+    account_sid: AC8bd1ffe77b6d18ad70e465ea67a071f6
+    auth_token: 11944b6e6dcbdf0e6c6ce9e646761d93
+    service_id: VA6300a3f7095e7e6f594292973a86238b
