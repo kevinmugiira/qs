@@ -23,6 +23,10 @@ spring:
   jpa:
     generate-ddl: true
 
+server:
+  servlet:
+    context-path: /codejava
+
 
 #  jpa:
 #    properties:
