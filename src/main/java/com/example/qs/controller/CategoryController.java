@@ -34,5 +34,15 @@ public class CategoryController {
     public List<Category> listCategory() {
         return categoryService.listCategory();
     }
+
+    @PostMapping("/update/{categoryId}")
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable("categoryId") int categoryId, @RequestBody Category category ) {
+        System.out.println("category Id " + categoryId);
+        if (!categoryService.findById(categoryId)) {
+            return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category doesn't exist"), HttpStatus.NOT_FOUND);
+        }
+        categoryService.editCategory(categoryId, category);
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "updated the category"), HttpStatus.OK);
+    }
 }
 
