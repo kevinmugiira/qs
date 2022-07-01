@@ -5,11 +5,9 @@ import com.example.qs.dto.ResponseDto;
 import com.example.qs.dto.user.SingupDto;
 import com.example.qs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RequestMapping("user")
 @RestController
 public class UserController {
