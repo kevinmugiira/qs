@@ -2,6 +2,7 @@ package com.example.qs.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tokens")
@@ -51,5 +52,14 @@ public class AuthenticationToken {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public AuthenticationToken() {
+    }
+
+    public AuthenticationToken(User user) {
+        this.user = user;
+        this.createDate = new Date();
+        this.token = UUID.randomUUID().toString();
     }
 }

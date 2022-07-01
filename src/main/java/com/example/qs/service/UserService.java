@@ -2,13 +2,18 @@ package com.example.qs.service;
 
 
 import com.example.qs.dto.ResponseDto;
+import com.example.qs.dto.user.SingInDto;
+import com.example.qs.dto.user.SingInResponseDto;
 import com.example.qs.dto.user.SingupDto;
+import com.example.qs.exceptions.AuthenticationFailException;
 import com.example.qs.exceptions.CustomException;
+import com.example.qs.model.AuthenticationToken;
 import com.example.qs.model.User;
 import com.example.qs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,6 +25,10 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    AuthenticationService authenticationService;
+
+    @Transactional
     public ResponseDto signUp(SingupDto singupDto) {
 
         //Actions to do here
@@ -34,7 +43,7 @@ public class UserService {
         String encryptedpassword = singupDto.getPassword();
 
         try {
-            encryptedpassword = hashPassword(singupDto.getPassword());
+            encryptedpassword = hashPassword(encryptedpassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             throw new CustomException(e.getMessage()); //you can use this if you want to throw an exception
@@ -48,15 +57,46 @@ public class UserService {
                 );
         userRepository.save(user);
 
+        final AuthenticationToken authenticationToken = new AuthenticationToken(user);
+        authenticationService.saveConfirmationToken(authenticationToken);
 
-        return new ResponseDto("success", "dummy response");
+        return new ResponseDto("success", "user has been created");
     }
 
     private String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(password.getBytes());
         byte[] digest = md.digest();
-        String hash = DatatypeConverter.printHexBinary(digest).toUpperCase();
-        return hash;
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
+    }
+
+    public SingInResponseDto singIn(SingInDto singInDto) {
+
+        //tasks to be accomplished by this method
+
+        //find the user if present
+        User user = userRepository.findByEmail(singInDto.getEmail());
+        if (Objects.isNull(user)) {
+            throw new AuthenticationFailException("user not found");
+        }
+
+        //hash the password and make a comparison in the db
+        try {
+            if (!user.getPassword().equals(hashPassword(singInDto.getPassword()))) {
+                throw new AuthenticationFailException("password not matching");
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        //retrieve the token
+        AuthenticationToken token = authenticationService.getToken(user);
+        if (Objects.isNull(token)) {
+            throw new CustomException("token not present");
+        }
+
+        return new SingInResponseDto("success", token.getToken());
+
+        //return a response
     }
 }
