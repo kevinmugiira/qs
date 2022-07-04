@@ -1,6 +1,7 @@
 package com.example.qs.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Product {
 
     //many to one relationship
     @ManyToOne
+    @JsonIgnore //to hide category info within the wishlist add parameter
     @JoinColumn(name = "category_id")
     Category category;
 

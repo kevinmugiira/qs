@@ -10,6 +10,8 @@ import com.example.qs.exceptions.CustomException;
 import com.example.qs.model.AuthenticationToken;
 import com.example.qs.model.User;
 import com.example.qs.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class UserService {
     AuthenticationService authenticationService;
 
     @Transactional
-    public ResponseDto signUp(SingupDto singupDto) {
+    public ResponseDto signUp(SingupDto singupDto) throws JsonProcessingException {
 
         //Actions to do here
         //check if user exists
@@ -37,7 +39,10 @@ public class UserService {
         //hash the password
         //create the token
         if (Objects.nonNull(userRepository.findByEmail(singupDto.getEmail()))) {
-            throw new CustomException("user already exists!");
+            ObjectMapper objectMapper = new ObjectMapper();
+            String mys = "user already exists";
+            String newString = objectMapper.writeValueAsString(mys);
+            throw new CustomException(newString);
         }
 
         String encryptedpassword = singupDto.getPassword();
@@ -70,14 +75,17 @@ public class UserService {
         return DatatypeConverter.printHexBinary(digest).toUpperCase();
     }
 
-    public SingInResponseDto singIn(SingInDto singInDto) {
+    public SingInResponseDto singIn(SingInDto singInDto) throws JsonProcessingException {
 
         //tasks to be accomplished by this method
 
         //find the user if present
         User user = userRepository.findByEmail(singInDto.getEmail());
         if (Objects.isNull(user)) {
-            throw new AuthenticationFailException("user not found");
+            ObjectMapper objectMapper = new ObjectMapper();
+            String mys = "user not found";
+            String newString = objectMapper.writeValueAsString(mys);
+            throw new AuthenticationFailException(newString);
         }
 
         //hash the password and make a comparison in the db

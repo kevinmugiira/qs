@@ -28,7 +28,7 @@ public class CategoryController {
         }
 
         categoryService.createCategory(category);
-        return new ResponseEntity<>(new ApiResponse(true, "created the category"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse(true, "category created successfully!"), HttpStatus.CREATED);
     }
 
     @GetMapping("/list")
