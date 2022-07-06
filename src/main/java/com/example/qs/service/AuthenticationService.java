@@ -29,7 +29,7 @@ public class AuthenticationService {
     public User getUser(String token) {
         final AuthenticationToken authenticationToken = tokenRepository.findByToken(token);
 
-        if (Objects.nonNull(authenticationToken)) {
+        if (Objects.isNull(authenticationToken)) {
             return null;
         }
         //assert false;
