@@ -27,7 +27,7 @@ public class SwaggerConfig {
     }
 
     private ApiInfo getApiInfo() {
-        Contact contact = new Contact("webtutsplus", "http://webtutsplus.com", "contact.webtutsplus@gmail.com");
+        Contact contact = new Contact("Qua-Sure", "https://ikolegit.netlify.app/", "kevinmugiira@gmail.com");
         return new ApiInfoBuilder()
                 .title("QS API")
                 .description("Documentation QS api")
