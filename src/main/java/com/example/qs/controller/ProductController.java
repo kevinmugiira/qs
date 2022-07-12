@@ -4,7 +4,6 @@ package com.example.qs.controller;
 import com.example.qs.common.ApiResponse;
 import com.example.qs.dto.ProductDto;
 import com.example.qs.model.Category;
-import com.example.qs.model.Product;
 import com.example.qs.repository.CategoryRepository;
 import com.example.qs.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,6 +2,7 @@ package com.example.qs.service;
 
 
 import com.example.qs.dto.ProductDto;
+import com.example.qs.exceptions.ProductNotExistException;
 import com.example.qs.model.Category;
 import com.example.qs.model.Product;
 import com.example.qs.repository.ProductRepository;
@@ -66,5 +67,13 @@ public class ProductService {
         product.setPrice(productDto.getPrice());
 
         productRepository.save(product);
+    }
+
+    public Product getProductById(Integer productId) throws ProductNotExistException {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if (!optionalProduct.isPresent()) {
+            throw new ProductNotExistException("Product Id is invalid" + productId);
+        }
+        return optionalProduct.get();
     }
 }

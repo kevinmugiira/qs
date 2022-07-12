@@ -42,7 +42,7 @@ public class AuthenticationService {
             //throw an exception
             throw new AuthenticationFailException("no token found!!");
         }
-        if (Objects.isNull(getUser(token))) {
+        if (!Objects.isNull(getUser(token))) {
             throw new AuthenticationFailException("invalid token, no user found!!");
         }
     }
