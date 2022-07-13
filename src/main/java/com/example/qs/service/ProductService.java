@@ -72,7 +72,16 @@ public class ProductService {
     public Product getProductById(Integer productId) throws ProductNotExistException {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if (!optionalProduct.isPresent()) {
-            throw new ProductNotExistException("Product Id is invalid" + productId);
+            throw new ProductNotExistException("Product Id is invalid " + productId);
+        }
+        return optionalProduct.get();
+    }
+
+    public Product findById(Integer productId) throws ProductNotExistException{
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+
+        if (!optionalProduct.isPresent()) {
+            throw new ProductNotExistException("invalid product id");
         }
         return optionalProduct.get();
     }
