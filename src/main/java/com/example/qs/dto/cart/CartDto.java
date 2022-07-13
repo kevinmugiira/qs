@@ -2,46 +2,30 @@ package com.example.qs.dto.cart;
 
 import com.example.qs.model.Product;
 
+import java.util.List;
+
 public class CartDto {
 
-    private Integer id;
-    private Integer userId;
-    private Integer quantity;
-    private Product product;
+    private List<CartItemDto> cartItems;
 
+    private double totalCost;
 
     public CartDto() {
     }
 
-    public Integer getId() {
-        return id;
+    public List<CartItemDto> getCartItems() {
+        return cartItems;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCartItems(List<CartItemDto> cartItems) {
+        this.cartItems = cartItems;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public double getTotalCost() {
+        return totalCost;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
     }
 }
