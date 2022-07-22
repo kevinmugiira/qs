@@ -29,6 +29,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter</artifactId>-->
+<!--		</dependency>-->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -46,6 +52,18 @@
 			<version>8.0.29</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.projectlombok</groupId>-->
+<!--			<artifactId>lombok</artifactId>-->
+<!--			<version>1.18.24</version>-->
+<!--			<scope>provided</scope>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -68,11 +86,38 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>com.twilio.sdk</groupId>-->
-<!--			<artifactId>twilio</artifactId>-->
-<!--			<version>8.31.1</version>-->
-<!--		</dependency>-->
+
+
+		<!-- Stripe dependency -->
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>20.133.0</version>
+		</dependency>
+		<!-- //Stripe dependency -->
+
+		<!-- twilio dependencies -->
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>8.31.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+
+
+		<!-- twilio dependencies -->
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,13 +125,46 @@
 			<optional>true</optional>
 		</dependency>
 
+
+
+
 	</dependencies>
+
+
+<!--	<execution>-->
+<!--		<id>kapt</id>-->
+<!--		<goals>-->
+<!--			<goal>kapt</goal>-->
+<!--		</goals>-->
+<!--		<configuration>-->
+<!--&lt;!&ndash;			<sourceDirs>&ndash;&gt;-->
+<!--&lt;!&ndash;				<sourceDir>src/main/kotlin</sourceDir>&ndash;&gt;-->
+<!--&lt;!&ndash;			</sourceDirs>&ndash;&gt;-->
+<!--			<annotationProcessorPaths>-->
+<!--				<annotationProcessorPath>-->
+<!--					<groupId>org.springframework.boot</groupId>-->
+<!--					<artifactId>spring-boot-configuration-processor</artifactId>-->
+<!--					<version>1.5.3.RELEASE</version>-->
+<!--				</annotationProcessorPath>-->
+<!--			</annotationProcessorPaths>-->
+<!--		</configuration>-->
+<!--	</execution>-->
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
