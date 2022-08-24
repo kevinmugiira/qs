@@ -3,8 +3,8 @@ package com.example.qs.service;
 
 import com.example.qs.config.TwilioConfig;
 import com.example.qs.dto.twilio.OtpStatus;
-import com.example.qs.dto.twilio.PasswordResetRequestDto;
-import com.example.qs.dto.twilio.PasswordResetResponseDto;
+import com.example.qs.dto.twilio.TwilioRequestDto;
+import com.example.qs.dto.twilio.TwilioResponseDto;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,28 +24,29 @@ public class TwiliOtpService {
 
     Map<String, String> otpMap = new HashMap<>();
 
-    public Mono<PasswordResetResponseDto> sendOtp(PasswordResetRequestDto passwordResetRequestDto) {
+    public Mono<TwilioResponseDto> sendOtp(TwilioRequestDto twilioRequestDto) {
 
-        PasswordResetResponseDto passwordResetResponseDto = null;
+        TwilioResponseDto twilioResponseDto = null;
 
         try {
 
-            PhoneNumber to = new PhoneNumber(passwordResetRequestDto.getPhoneNumber()); //fetching the number to send sms to
+            PhoneNumber to = new PhoneNumber(twilioRequestDto.getPhoneNumber()); //fetching the number to send sms to
             PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber()); //fetching the number to send sms from ie: twilio's trial number
             String otp = generateOtp();
             String otpMessage = "Qua-Sure OTP is: " + otp;
 
-            Message message = Message.creator(to, from, otpMessage)
+            Message message = Message.creator(to, from,
+                            otpMessage)
                     .create();
 
-            otpMap.put(passwordResetRequestDto.getUserName(), otp);  //not the recommended way of storing otp consider using an in-memory db (get it from session scope)
-            passwordResetResponseDto = new PasswordResetResponseDto(otpMessage, OtpStatus.DELIVERED);
+            otpMap.put(twilioRequestDto.getUserName(), otp);  //not the recommended way of storing otp consider using an in-memory db (get it from session scope)
+            twilioResponseDto = new TwilioResponseDto(otpMessage, OtpStatus.DELIVERED);
 
         } catch (Exception ex) {
-            passwordResetResponseDto = new PasswordResetResponseDto(ex.getMessage(), OtpStatus.FAILED);
+            twilioResponseDto = new TwilioResponseDto(ex.getMessage(), OtpStatus.FAILED);
         }
 
-        return Mono.just(passwordResetResponseDto);
+        return Mono.just(twilioResponseDto);
     }
 
     public Mono<String> validateOtp(String userInputOtp, String userName) {

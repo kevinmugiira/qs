@@ -17,6 +17,7 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+   //TODO: Change contact type to String
     @Column(name = "contact")
     private Integer contact;
 
@@ -25,6 +26,9 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+
+    //TODO: Add role
 
     public User() {
 

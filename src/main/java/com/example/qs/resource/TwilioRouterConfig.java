@@ -12,22 +12,14 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 public class TwilioRouterConfig {
 
     @Autowired
-    private TwilioOtpHandler handler;
+    private TwilioOtpHandler twilioOtpHandler;
 
     @Bean
     //this router acts as the controller class which then calls the handler method
     public RouterFunction<ServerResponse> handleSMS() {
         return RouterFunctions.route()
-                .POST("/router/sendOTP", handler::sendOTP) //api for sending the otp
-                .POST("/router/validateOTP", handler::validateOTP) //api for validating the otp
+                .POST("/router/sendOTP", twilioOtpHandler::sendOTP) //api for sending the otp
+                .POST("/router/validateOTP", twilioOtpHandler::validateOTP) //api for validating the otp
                 .build();
     }
-
-//    public RouterFunction<ServerResponse> handleSMS() {
-//        return RouterFunctions.route()
-//                .POST("/router/sendOTP", twilioOtpHandler::sendOTP)
-//                .POST("/router/validateOTP", twilioOtpHandler::validateOTP)
-//                .build();
-//    }
-//}
 }
