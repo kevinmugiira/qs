@@ -32,7 +32,7 @@ public class WishListController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addToWishList(@RequestBody Product product, @RequestParam("token") String token) {
         //actions:
-        // Authenticate token
+        // Authenticate the token
         authenticationService.authenticate(token);
 
         //find the user

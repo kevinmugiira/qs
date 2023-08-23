@@ -1,0 +1,100 @@
+version: '3.3'
+services:
+#  db:
+#    image: mysql
+#    container_name: mysqldb
+#    restart: always
+#
+#    environment:
+#      MYSQL_PASSWORD: Rootroot@1045
+#      MYSQL_DATABASE: qs
+#      MYSQL_TCP_PORT: 3308
+#
+#    ports:
+#      - "3308:3308"
+#    volumes:
+#      - '/home/kevin-m/Desktop/db:/var/lib/mysql'
+#
+#    networks:
+#       - spring-net
+
+
+  mysql:
+    container_name: mysqlddb
+    image: mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Rootroot@1045
+      MYSQL_DATA_DIR: /data/mysql
+    volumes:
+      - mysql:/data/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql
+    restart: unless-stopped
+
+#networks:
+#  mysql:
+#    driver: bridge
+volumes:
+  mysql:
+
+
+#  qua-sure:
+#    container_name: qs-spring-boot-docker
+#    image: qs-spring-boot-docker
+#    build:
+#      context: /home/kevin-m/IntellijProjects/qs/
+#      dockerfile: Dockerfile
+#    ports:
+#        - "8080:8080"
+#    hostname: mysqldb
+#    depends_on:
+#        - db
+#
+#    environment:
+#        spring.datasource.url: jdbc:mysql://localhost:3307/qs?createDatabaseIfNotExist=true
+#        spring.datasource.username: root
+#        spring.datasource.password: Rootroot@1045
+
+networks:
+  spring-net:
+    external: true
+  mysql:
+    driver: bridge
+#volumes:
+#   /home/kevin-m/Desktop/db:
+#    driver: local
+
+#  wallet-service:
+#
+#    build: ./WalletService
+#
+#    container_name: wallet-service
+#
+#    ports:
+#
+#      - "9707:9707"
+#
+#    hostnames: wallet-service
+#
+#    volumes:
+#
+#      - ./logs/wallet-service:/logs
+#
+#    networks:
+#
+#      - advancys-net
+#
+#    deploy:
+#
+#      restart_policy:
+#
+#        condition: always
+#
+#      resources:
+#
+#        limits:
+#
+#          memory: 256m

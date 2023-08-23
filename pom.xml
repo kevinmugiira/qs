@@ -14,9 +14,12 @@
 	<name>qs</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<property name="dialect">
+			org.hibernate.dialect.MySQL8Dialect
+		</property>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -112,6 +115,14 @@
 			<version>20.133.0</version>
 		</dependency>
 		<!-- //Stripe dependency -->
+
+		<!--//maven shade -->
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-shade-plugin</artifactId>
+			<version>3.2.4</version>
+		</dependency>
+
 	</dependencies>
 
 
@@ -151,6 +162,7 @@
 <!--				</configuration>-->
 			</plugin>
 		</plugins>
+		<finalName>qs-spring-boot-docker</finalName>
 	</build>
 
 </project>
