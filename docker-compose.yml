@@ -37,26 +37,28 @@ services:
 #networks:
 #  mysql:
 #    driver: bridge
+
+
+
+  qua-sure:
+    container_name: qs-spring-boot-docker
+    image: qs-spring-boot-docker
+    build:
+      context: /home/kevin-m/IntellijProjects/qs/
+      dockerfile: Dockerfile
+    ports:
+        - "8080:8080"
+    hostname: mysqlddb
+    depends_on:
+        - mysql
+
+    environment:
+        spring.datasource.url: jdbc:mysql://localhost:3306/qs?createDatabaseIfNotExist=true
+        spring.datasource.username: root
+        spring.datasource.password: Rootroot@1045
+
 volumes:
   mysql:
-
-
-#  qua-sure:
-#    container_name: qs-spring-boot-docker
-#    image: qs-spring-boot-docker
-#    build:
-#      context: /home/kevin-m/IntellijProjects/qs/
-#      dockerfile: Dockerfile
-#    ports:
-#        - "8080:8080"
-#    hostname: mysqldb
-#    depends_on:
-#        - db
-#
-#    environment:
-#        spring.datasource.url: jdbc:mysql://localhost:3307/qs?createDatabaseIfNotExist=true
-#        spring.datasource.username: root
-#        spring.datasource.password: Rootroot@1045
 
 networks:
   spring-net:
