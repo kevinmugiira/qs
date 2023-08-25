@@ -8,4 +8,4 @@ FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 #ENTRYPOINT ["java", "-jar", "/app.jar"]
-ENTRYPOINT ["java","-jar","qs-spring-boot-docker.jar"]
+ENTRYPOINT ["java","-jar","/home/kevin-m/IntellijProjects/qs/target/qs-spring-boot-docker.jar"]
