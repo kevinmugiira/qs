@@ -1,0 +1,80 @@
+#version: '3.3'
+#services:
+#  mysql:
+#    container_name: mysqlddb
+#    image: mysql
+#    environment:
+##      MYSQL_USER: root
+#      MYSQL_ROOT_PASSWORD: Rootroot@1045
+#      MYSQL_DATA_DIR: /data/mysql
+#    volumes:
+#      - mysql:/data/mysql
+#    ports:
+#      - "3306:3306"
+#    networks:
+#      - mysql
+#    restart: unless-stopped
+#
+#  qua-sure:
+#    container_name: qs-spring-boot-docker
+#    image: qs-spring-boot-docker
+#    build:
+#      context: /home/kevin-m/IntellijProjects/qs/target
+#      dockerfile: Dockerfile
+#    ports:
+#        - "8080:8080"
+#    hostname: mysqlddb
+#    depends_on:
+#        - mysql
+#
+#    environment:
+#        spring.datasource.url: jdbc:mysql://localhost:3307/qs?createDatabaseIfNotExist=true
+#        spring.datasource.username: root
+#        spring.datasource.password: Rootroot@1045
+#
+#networks:
+#  spring-net:
+#    external: true
+#  mysql:
+#    driver: bridge
+#
+#volumes:
+#  mysql:
+#
+#
+#
+##volumes:
+##   /home/kevin-m/Desktop/db:
+##    driver: local
+#
+##  wallet-service:
+##
+##    build: ./WalletService
+##
+##    container_name: wallet-service
+##
+##    ports:
+##
+##      - "9707:9707"
+##
+##    hostnames: wallet-service
+##
+##    volumes:
+##
+##      - ./logs/wallet-service:/logs
+##
+##    networks:
+##
+##      - advancys-net
+##
+##    deploy:
+##
+##      restart_policy:
+##
+##        condition: always
+##
+##      resources:
+##
+##        limits:
+##
+##          memory: 256m
