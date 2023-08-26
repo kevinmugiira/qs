@@ -78,3 +78,10 @@
 ##        limits:
 ##
 ##          memory: 256m
+
+MYSQLUSER=root
+MYSQLPORT=8010
+MYSQLPASSWORD=U0GbIOoBUKRqxkjsowdx
+MYSQLHOST=containers-us-west-114.railway.app
+MYSQLDATABASE=railway
+MYSQL_URL=mysql://root:U0GbIOoBUKRqxkjsowdx@containers-us-west-114.railway.app:8010/railway
